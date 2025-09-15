@@ -1,0 +1,49 @@
+# Example .editorconfig for a project
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Global default: 2 spaces
+indent_style = space
+indent_size = 2
+
+# JavaScript/TypeScript: 2 spaces
+[*.{js,jsx,ts,tsx}]
+indent_style = space
+indent_size = 2
+
+# JSON files: 2 spaces (this solves your original issue!)
+[*.json]
+indent_style = space
+indent_size = 2
+
+# Python: 4 spaces (PEP 8 standard)
+[*.py]
+indent_style = space
+indent_size = 4
+
+# Go: tabs (Go standard)
+[*.go]
+indent_style = tab
+
+# YAML: 2 spaces (YAML standard)
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# Markdown: 4 spaces for consistency with content
+[*.md]
+indent_style = space
+indent_size = 4
+
+# Configuration files
+[Makefile]
+indent_style = tab
+
+[*.toml]
+indent_style = space
+indent_size = 2
