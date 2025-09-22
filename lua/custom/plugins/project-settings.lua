@@ -34,22 +34,27 @@ return {
         if vim.fn.filereadable(root_dir .. '/package.json') == 1 then
           local ok, package_content = pcall(vim.fn.readfile, root_dir .. '/package.json')
           if ok then
-            local package_str = table.concat(package_content, '\\n')
-            local package_json = vim.fn.json_decode(package_str)
+            local package_str = table.concat(package_content, '\n')
+            local json_ok, package_json = pcall(vim.fn.json_decode, package_str)
             
-            -- Check for prettier config in package.json
-            if package_json and package_json.prettier then
-              vim.g.project_prettier_config = true
-            end
-            
-            -- Check for specific dependencies that might indicate formatting preferences
-            if package_json and package_json.devDependencies then
-              if package_json.devDependencies.prettier then
-                vim.g.project_uses_prettier = true
+            if json_ok and package_json then
+              -- Check for prettier config in package.json
+              if package_json.prettier then
+                vim.g.project_prettier_config = true
               end
-              if package_json.devDependencies.eslint then
-                vim.g.project_uses_eslint = true
+              
+              -- Check for specific dependencies that might indicate formatting preferences
+              if package_json.devDependencies then
+                if package_json.devDependencies.prettier then
+                  vim.g.project_uses_prettier = true
+                end
+                if package_json.devDependencies.eslint then
+                  vim.g.project_uses_eslint = true
+                end
               end
+            else
+              -- Log warning but don't crash
+              vim.notify('Warning: Failed to parse package.json in ' .. root_dir, vim.log.levels.WARN)
             end
           end
         end
