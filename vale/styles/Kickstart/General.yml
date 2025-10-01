@@ -1,0 +1,11 @@
+# Simple shared Vale style used for Neovim prose editing.
+# Adds a handful of tone-related suggestions that are useful across projects.
+extends: existence
+message: "Prefer stronger wording than '%s'."
+level: warning
+ignorecase: true
+tokens:
+  - actually
+  - basically
+  - just
+  - simply
